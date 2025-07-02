@@ -1,10 +1,13 @@
 import { faker } from '@faker-js/faker'
+import {HelperBase} from '../page-object/helperBase'
+
 
 export type UserData = { 
       firstName?:string, 
-      lastName:string,
-      email:string, 
-      password:string,
+      lastName?:string,
+      email?:string, 
+      password?:string,
+      confirmPassword?:string,
       gender?:string,
       dateOfBirth?:string,
       phoneNumber?:string,
@@ -14,12 +17,14 @@ export type UserData = {
       validationMessage?:string
   
     }
+  const password = generatePassword()
 
   export const users: UserData[] = [
-  { 
+  { //without  firstname field        
     lastName: faker.person.lastName(),
     email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
-    password: generatePassword(),
+    password: password,
+    confirmPassword:password,
     gender:generateRandomGender(),
     dateOfBirth: generateDOB(),
     phoneNumber:generatePhoneNumber(),
@@ -29,20 +34,70 @@ export type UserData = {
     validationMessage:'First name must be filled out'
   },
 
-  { firstName: faker.person.firstName(), 
-    lastName: faker.person.lastName(),
+  { firstName: faker.person.firstName(),
+    //without  lastName field    
     email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
-    password: generatePassword(),
+    password: password,
+    confirmPassword:password,
     gender:generateRandomGender(),
     dateOfBirth: generateDOB(),
     phoneNumber:generatePhoneNumber(),
     address:generateAddressWithFaker(),
     linkedInURL:generateFakeLinkedInUrl(),
-    gitHubURL:generateFakeLinkedInProfile()    
+    gitHubURL:generateFakeLinkedInProfile(),
+    validationMessage:'First name must be filled out'    
   },
-  
+  { firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    //without  email field
+    password: password,
+    confirmPassword:password,
+    gender:generateRandomGender(),
+    dateOfBirth: generateDOB(),
+    phoneNumber:generatePhoneNumber(),
+    address:generateAddressWithFaker(),
+    linkedInURL:generateFakeLinkedInUrl(),
+    gitHubURL:generateFakeLinkedInProfile(),
+    validationMessage:'Email must be filled out'    
+  },
+   { firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
+    //without  password and confirmPassword, field   
+    gender:generateRandomGender(),
+    dateOfBirth: generateDOB(),
+    phoneNumber:generatePhoneNumber(),
+    address:generateAddressWithFaker(),
+    linkedInURL:generateFakeLinkedInUrl(),
+    gitHubURL:generateFakeLinkedInProfile(),
+    validationMessage:'Confirm password must be filled out'    
+  },
+  { firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
+    //without  confirmPassword field
+    password: password,      
+    gender:generateRandomGender(),
+    dateOfBirth: generateDOB(),
+    phoneNumber:generatePhoneNumber(),
+    address:generateAddressWithFaker(),
+    linkedInURL:generateFakeLinkedInUrl(),
+    gitHubURL:generateFakeLinkedInProfile(),
+    validationMessage:'Confirm password must be filled out'    
+  },
+  { firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
+    //without  confirmPassword field  
+    gender:generateRandomGender(),
+    dateOfBirth: generateDOB(),
+    phoneNumber:generatePhoneNumber(),
+    address:generateAddressWithFaker(),
+    linkedInURL:generateFakeLinkedInUrl(),
+    gitHubURL:generateFakeLinkedInProfile(),
+    validationMessage:'Confirm password must be filled out'    
+  }
 ]
-
 
   function generateDOB(): string {
   const start = new Date(1950, 0, 1); // 01 Jan 1950
