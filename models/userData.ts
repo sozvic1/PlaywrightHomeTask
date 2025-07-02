@@ -2,9 +2,9 @@ import { faker } from '@faker-js/faker'
 import {HelperBase} from '../page-object/helperBase'
 
 
-export type UserData = { 
+export type UserData = {      
       firstName?:string, 
-      lastName?:string,
+      lastName?:string | undefined,
       email?:string, 
       password?:string,
       confirmPassword?:string,
@@ -20,7 +20,7 @@ export type UserData = {
   const password = generatePassword()
 
   export const users: UserData[] = [
-  { //without  firstname field        
+  { //without  firstname field           
     lastName: faker.person.lastName(),
     email:`${faker.person.firstName().replace(' ', '')}${faker.number.int(1000)}@test.com`,
     password: password,
